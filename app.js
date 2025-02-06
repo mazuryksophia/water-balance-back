@@ -8,7 +8,7 @@ import waterRouter from "./routes/water.js";
 import usersRouter from "./routes/users.js";
 
 const corsOptions = {
-  origin: ["https://mazuryksophia.github.io", "https://water-balance-back.onrender.com", "http://localhost:5173"],
+  origin: ["https://mazuryksophia.github.io", "http://localhost:5173"],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -23,10 +23,10 @@ export const app = express();
 
 app.use(morgan("tiny"));
 app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   next();
+// });
 app.options("*", cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
@@ -34,9 +34,9 @@ app.use(express.json());
 app.use("/api/users", usersRouter);
 app.use("/api/water", waterRouter);
 
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Water Balance API!" });
-});
+// app.get("/", (req, res) => {
+//   res.json({ message: "Welcome to Water Balance API!" });
+// });
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
